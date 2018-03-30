@@ -3,16 +3,16 @@ export interface LatLng {
   lng: number
 }
 
-export interface DMC {
+interface DMC {
   degrees: number,
   minutes: number,
   centiminutes: number
 }
 
  /**
- * convert lat, lng coordinates into DMC string
- * return an empty string if lat, lng object is not valid
- * @param latlng {lat, lng}
+ * Convert lat, lng coordinates into DMC string.
+ * Return an empty string if lat, lng object is not valid.
+ * @param latlng 
  * @return DMC string
  */
 export function toDMC (latlng: LatLng): string {
@@ -46,13 +46,13 @@ export function toDMC (latlng: LatLng): string {
 }
 
 /**
- * convert a DMC string (e.g.: 24° 30' 21cmin N 35° 10' 72cmin E) into a lat,lng object
+ * Convert a DMC string (e.g.: 24° 30' 21cmin N 35° 10' 72cmin E) into a lat, lng object.
  * @param DMC a DMC (degree, minute, centiminute) string
- * @return {lat, lng}
+ * @return Promise<LatLng>
  */
 export function toLatLon (DMC: string): Promise<LatLng> {
   return new Promise((resolve, reject) => {
-    const regex: RegExp = /(\d+(?:\.\d+)?)[°:d\s]?\s?(?:(\d+(?:\.\d+)?)[']\s?(?:(\d{1,2})(?:cmin)?)?)?\s?([NSEW])?/i;
+    const regex: RegExp = /(\d+)[°\s]?\s?(\d+)[.\s]?\s?(\d+)['\s]?\s?([NSEW])?/i;
     const lat = DMC.match(regex);
 
     if (!lat) reject('Could not parse dmc string... Lat part invalid.');
@@ -88,16 +88,15 @@ function parse (coordinate: number): DMC {
 }
 
 function toString ({degrees, minutes, centiminutes}: DMC): string {
-  return `${degrees}° ${minutes}' ${centiminutes}cmin`;
+  return `${degrees}° ${minutes}.${centiminutes}'`;
 }
 
-function toDecimal (dmcParts: RegExpMatchArray | null): number {
+function toDecimal (dmcParts: RegExpMatchArray): number {
   const degrees = parseInt(dmcParts[1], 10);
   const minutes = parseInt(dmcParts[2], 10);
   const centiminutes = parseInt(dmcParts[3], 10);
   const hemisphere = dmcParts[4];
-
-  // [full, degrees, minutes, centiminutes, hemisphere]
+ 
   if (!isInRange(degrees, 0, 180)) {
     throw Error('degrees are not in range [0, 180]');
   }
@@ -110,7 +109,9 @@ function toDecimal (dmcParts: RegExpMatchArray | null): number {
     throw Error('centiminutes are not in range [0, 100]');
   }
 
-  const decimal: number = degrees + (minutes / 60) + centiminutes / 100;
+  let decimal: number = degrees + (minutes / 60) + centiminutes / 60 / 100;
+  // keep 3 decimal, after that we loose precision
+  decimal = Math.floor(decimal * 1000) / 1000;
   return hemisphere === 'N' || hemisphere === 'E' ? decimal : -decimal;
 }
 

@@ -1,7 +1,5 @@
 import { toDMC, toLatLon } from '../lib/index';
 
-console.log(toDMC);
-
 describe('[PARSING]', () => {
   it('should parse decimal coordinates {lat, lng} to DMC (degrees, minutes, centiminues)', () => {
     // Rixensart
@@ -10,18 +8,16 @@ describe('[PARSING]', () => {
       lng: 4.533810
     };
 
-    const DMC = toDMC(coordinates);
-    console.log(DMC);
-    expect(toDMC).toBe(`50° 42' 66cmin N 4° 32' 28cmin E`);
+    const dmc = toDMC(coordinates);
+    expect(dmc).toBe(`50° 42.66' N 4° 32.2' E`);
   });
 
   it('should parse DMC (degrees, minutes, centiminues) to decimal coordinates {lat, lng}', async () => {
-    const DMC = `50° 42' 66cmin N 4° 32' 28cmin E`;
-    const LatLon = await toLatLon(DMC);
-    console.log(LatLon);
-    expect(LatLon).toEqual({
-      lat: 50.711042, 
-      lng: 4.533810
+    const dmc = `50° 42.66' N 4° 32.2' E`;
+    const latLon = await toLatLon(dmc);
+    expect(latLon).toEqual({
+      lat: 50.711, 
+      lng: 4.533
     });
   });
 });
