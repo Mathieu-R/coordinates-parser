@@ -1,6 +1,6 @@
 {
   "name": "coordinates-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "parse coordinates (lat, lon) into DMC (degree, minute, centiminute) and vice versa.",
   "main": "index.js",
   "scripts": {
