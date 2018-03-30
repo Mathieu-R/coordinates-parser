@@ -11,5 +11,4 @@ before_script:
   - npm install -g jest-cli
 script:
   - npm run build 
-  - jest test --ci --colors && codecov
-  - npm run security-check
+  - npm run test:ci && codecov
