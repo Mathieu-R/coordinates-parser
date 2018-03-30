@@ -1,9 +1,12 @@
 lib/
 test
+coverage
 .travis.yml
+.vscode
+.gitignore
+.rpt2_cache
 rollup.config.js
 tsconfig.json
-coverage
-.vscode
-.rpt2_cache
+tsconfig.jest.json
 node_modules
+package-lock.json

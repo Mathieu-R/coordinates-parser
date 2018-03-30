@@ -1,4 +1,6 @@
-import { toDMC, toLatLon } from '../dist/coordinates-parser-cjs';
+import { toDMC, toLatLon } from '../lib/index';
+
+console.log(toDMC);
 
 describe('[PARSING]', () => {
   it('should parse decimal coordinates {lat, lng} to DMC (degrees, minutes, centiminues)', () => {

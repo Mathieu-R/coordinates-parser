@@ -3,10 +3,12 @@
   "version": "1.0.1",
   "description": "parse coordinates (lat, lon) into DMC (degree, minute, centiminute) and vice versa.",
   "main": "index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && rollup -c",
+    "build": "rimraf ./dist && tsc",
     "test": "jest test",
     "security-check": "nsp check",
+    "typedoc": "typedoc --out ./docs --mode modules --tsconfig",
     "publish:patch": "npm run build && npm version patch && npm publish",
     "publish:minor": "npm run build && npm version minor && npm publish",
     "publish:major": "npm run build && npm version major && npm publish"

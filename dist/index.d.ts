@@ -2,6 +2,11 @@ export interface LatLng {
     lat: number;
     lng: number;
 }
+export interface DMC {
+    degrees: number;
+    minutes: number;
+    centiminutes: number;
+}
 /**
 * convert lat, lng coordinates into DMC string
 * return an empty string if lat, lng object is not valid
