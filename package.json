@@ -1,0 +1,39 @@
+{
+  "name": "coordinates-parser",
+  "version": "1.0.0",
+  "description": "parse coordinates (lat, lon) into DMC (degree, minute, centiminute) and vice versa.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf ./dist && rollup -c",
+    "test": "jest test",
+    "security-check": "nsp check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mathieu-R/coordinates-parser.git"
+  },
+  "keywords": [
+    "coordinates",
+    "parser",
+    "dmc"
+  ],
+  "author": "Mathieu Rousseau <mathieu0709@gmail.com> (https://github.com/Mathieu-R)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mathieu-R/coordinates-parser/issues"
+  },
+  "homepage": "https://github.com/Mathieu-R/coordinates-parser#readme",
+  "devDependencies": {
+    "nsp": "^3.2.1",
+    "rollup": "^0.57.1",
+    "rollup-plugin-babel-minify": "^4.0.0",
+    "rollup-plugin-filesize": "^1.5.0",
+    "rollup-plugin-progress": "^0.4.0",
+    "rollup-plugin-typescript2": "^0.12.0",
+    "typescript": "^2.8.1"
+  },
+  "dependencies": {
+    "jest": "^22.4.3",
+    "npm": "^5.8.0"
+  }
+}
