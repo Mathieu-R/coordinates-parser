@@ -1,7 +1,7 @@
 const { toDMC, toLatLon } = require('./dist/coord-parser-cjs.js');
 
-describe('[PARSING]', _ => {
-  it('should parse decimal coordinates {lat, lng} to DMC (degrees, minutes, centiminues)', _ => {
+describe('[PARSING]', () => {
+  it('should parse decimal coordinates {lat, lng} to DMC (degrees, minutes, centiminues)', () => {
     // Rixensart
     const coordinates = {
       lat: 50.711042, 
@@ -10,10 +10,16 @@ describe('[PARSING]', _ => {
 
     const DMC = toDMC(coordinates);
     console.log(DMC);
-    expect(toDMC).toBe('');
+    expect(toDMC).toBe(`50° 42' 66cmin N 4° 32' 28cmin E`);
   });
 
-  it('should parse DMC (degrees, minutes, centiminues) to decimal coordinates {lat, lng}', async _ => {
-    
+  it('should parse DMC (degrees, minutes, centiminues) to decimal coordinates {lat, lng}', async () => {
+    const DMC = `50° 42' 66cmin N 4° 32' 28cmin E`;
+    const LatLon = await toLatLon(DMC);
+    console.log(LatLon);
+    expect(LatLon).toEqual({
+      lat: 50.711042, 
+      lng: 4.533810
+    });
   });
 })

@@ -52,7 +52,7 @@ export function toDMC (latlng: LatLng): string {
  */
 export function toLatLon (DMC: string): Promise<LatLng> {
   return new Promise((resolve, reject) => {
-    const regex = /([NSEW])?(-)?(\d+(?:\.\d+)?)[°º:d\s]?\s?(?:(\d+(?:\.\d+)?)['’‘′:]\s?(?:(\d{1,2}(?:\.\d+)?)(?:"|″|’’|'')?)?)?\s?([NSEW])?/i;
+    const regex = /([NSEW])?(-)?(\d+(?:\.\d+)?)[°º:d\s]?\s?(?:(\d+(?:\.\d+)?)['’‘′:]\s?(?:(\d{1,2}(?:\.\d+)?)(?:cmin)?)?)?\s?([NSEW])?/i;
     const match = DMC.match(regex);
 
     console.log(match);
@@ -78,7 +78,7 @@ function parse (coordinate: number): DMC {
 
   return {
     degrees: degreesInt, 
-    minutes: minutesFloat, 
+    minutes: minutesInt, 
     centiminutes: centiminutesInt
   }
 }
