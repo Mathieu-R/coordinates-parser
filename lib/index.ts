@@ -33,8 +33,8 @@ export function toDMC (latlng: LatLng): string {
     return '';
   }
 
-  const north = lat > 0;
-  const east = lng > 0;
+  const north: boolean = lat > 0;
+  const east: boolean = lng > 0;
 
   const lngDMC = parse(lng);
   const latDMC = parse(lat);
@@ -52,17 +52,23 @@ export function toDMC (latlng: LatLng): string {
  */
 export function toLatLon (DMC: string): Promise<LatLng> {
   return new Promise((resolve, reject) => {
-    const regex = /([NSEW])?(-)?(\d+(?:\.\d+)?)[°º:d\s]?\s?(?:(\d+(?:\.\d+)?)['’‘′:]\s?(?:(\d{1,2}(?:\.\d+)?)(?:cmin)?)?)?\s?([NSEW])?/i;
-    const match = DMC.match(regex);
+    const regex: RegExp = /(\d+(?:\.\d+)?)[°:d\s]?\s?(?:(\d+(?:\.\d+)?)[']\s?(?:(\d{1,2})(?:cmin)?)?)?\s?([NSEW])?/i;
+    const lat = DMC.match(regex);
 
-    console.log(match);
+    console.log(lat);
+    if (!lat) reject('Could not parse dmc string... Lat part invalid.');
 
-    if (!match) reject('Could not parse dmc string...');
+    // remove lat part from dmc string
+    const lngString = DMC.substr(lat[0].length - 1).trim();
+    const lng = lngString.match(regex);
 
+    console.log(lng);
+    if (!lng) reject('Could not parse dmc string... Lng part invalid.');
+    
     resolve({
-      lat: 0,
-      lng: 0
-    })
+      lat: toDecimal(lat),
+      lng: toDecimal(lng)
+    });
   });
 }
 
@@ -85,4 +91,31 @@ function parse (coordinate: number): DMC {
 
 function toString ({degrees, minutes, centiminutes}: DMC): string {
   return `${degrees}° ${minutes}' ${centiminutes}cmin`;
+}
+
+function toDecimal (dmcParts: RegExpMatchArray | null): number {
+  const degrees = parseInt(dmcParts[1], 10);
+  const minutes = parseInt(dmcParts[2], 10);
+  const centiminutes = parseInt(dmcParts[3], 10);
+  const hemisphere = dmcParts[4];
+
+  // [full, degrees, minutes, centiminutes, hemisphere]
+  if (!isInRange(degrees, 0, 180)) {
+    throw Error('degrees are not in range [0, 180]');
+  }
+
+  if (!isInRange(minutes, 0, 60)) {
+    throw Error('minutes are not in range [0, 60]');
+  }
+
+  if (!isInRange(centiminutes, 0, 100)) {
+    throw Error('centiminutes are not in range [0, 100]');
+  }
+
+  const decimal: number = degrees + (minutes / 60) + centiminutes / 100;
+  return hemisphere === 'N' || hemisphere === 'E' ? decimal : -decimal;
+}
+
+function isInRange (value: number, start: number, stop: number) {
+  return (value >= start && value <= stop);
 }
