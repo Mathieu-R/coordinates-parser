@@ -2,6 +2,8 @@
 
 [![codecov](https://codecov.io/gh/Mathieu-R/coordinates-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/Mathieu-R/coordinates-parser)
 
+[![npm version](https://badge.fury.io/js/coordinates-parser.svg)](https://badge.fury.io/js/coordinates-parser)
+
 # coordinates-parser
 parse coordinates (lat, lon) into DMC (degree, minute, centiminute) and vice versa.
 

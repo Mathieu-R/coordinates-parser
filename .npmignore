@@ -1,1 +1,9 @@
 lib/
+test
+.travis.yml
+rollup.config.js
+tsconfig.json
+coverage
+.vscode
+.rpt2_cache
+node_modules

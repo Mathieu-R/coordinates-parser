@@ -3,7 +3,7 @@ export interface LatLng {
   lng: number
 }
 
-interface DMC {
+export interface DMC {
   degrees: number,
   minutes: number,
   centiminutes: number
@@ -55,14 +55,12 @@ export function toLatLon (DMC: string): Promise<LatLng> {
     const regex: RegExp = /(\d+(?:\.\d+)?)[°:d\s]?\s?(?:(\d+(?:\.\d+)?)[']\s?(?:(\d{1,2})(?:cmin)?)?)?\s?([NSEW])?/i;
     const lat = DMC.match(regex);
 
-    console.log(lat);
     if (!lat) reject('Could not parse dmc string... Lat part invalid.');
 
     // remove lat part from dmc string
     const lngString = DMC.substr(lat[0].length - 1).trim();
     const lng = lngString.match(regex);
 
-    console.log(lng);
     if (!lng) reject('Could not parse dmc string... Lng part invalid.');
     
     resolve({
