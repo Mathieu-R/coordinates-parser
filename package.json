@@ -36,5 +36,9 @@
   },
   "dependencies": {
     "npm": "^5.8.0"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
