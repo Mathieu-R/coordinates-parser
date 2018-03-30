@@ -6,7 +6,10 @@
   "scripts": {
     "build": "rimraf ./dist && rollup -c",
     "test": "jest test",
-    "security-check": "nsp check"
+    "security-check": "nsp check",
+    "publish:patch": "npm run build && npm version patch && npm publish",
+    "publish:minor": "npm run build && npm version minor && npm publish",
+    "publish:major": "npm run build && npm version major && npm publish"
   },
   "repository": {
     "type": "git",

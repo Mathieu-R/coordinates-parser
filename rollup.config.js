@@ -12,10 +12,14 @@ export default {
     progress()
   ],
   output: [{
-    file: 'dist/coord-parser-cjs.js',
+    file: 'dist/coordinates-parser-iife.js',
+    format: 'iife',
+    name: 'coordinatesParser'
+  }, {
+    file: 'dist/coordinates-parser-cjs.js',
     format: 'cjs'
   }, {
-    file: 'dist/coord-parser.mjs',
+    file: 'dist/coordinates-parser.mjs',
     format: 'es'
   }]
 };
