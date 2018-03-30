@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/Mathieu-R/coordinates-parser.svg?branch=master)](https://travis-ci.org/Mathieu-R/coordinates-parser)
+
+[![codecov](https://codecov.io/gh/Mathieu-R/coordinates-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/Mathieu-R/coordinates-parser)
+
 # coordinates-parser
 parse coordinates (lat, lon) into DMC (degree, minute, centiminute) and vice versa.
 
