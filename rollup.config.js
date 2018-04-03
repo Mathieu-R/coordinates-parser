@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript2';
+import babel from 'rollup-plugin-babel';
 import minify from 'rollup-plugin-babel-minify';
 import filesize from 'rollup-plugin-filesize';
 import progress from 'rollup-plugin-progress';
@@ -6,7 +7,10 @@ import progress from 'rollup-plugin-progress';
 export default {
   input: 'lib/index.ts',
   plugins: [
-    typescript(), 
+    typescript(),
+    babel({
+      exclude: 'node_modules/**'
+    }),
     minify({comments: false, sourceMap: false}),
     filesize(),
     progress()
