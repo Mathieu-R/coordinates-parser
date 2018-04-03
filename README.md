@@ -26,7 +26,7 @@ const DMC = toDMC(coordinates);
 ```js
 import { toLatLon } from 'coordinates-parser';
 
-const DMC = `0° 52' 43cmin S 24° 26' 1cmin W`;
+const DMC = `0° 52.43' S 24° 26.1' W`;
 
 try {
   const {lat, lng} = await toLatLon(DMC);
